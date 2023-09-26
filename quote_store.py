@@ -14,6 +14,7 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS test
                   (id INTEGER PRIMARY KEY, 
                   quote TEXT,
                   URL TEXT)''')
+
 conn.commit()
 
 
@@ -43,13 +44,6 @@ tag = soup.findAll('p')
 
 # Access each body tag's string recursively
 for string in tag:
-
-    print(string.text)
-
-    if id > 5:
-        break
-
-    
 
     output = query({
 	"inputs": f"{string.text}"
@@ -95,12 +89,20 @@ for string in tag:
     
 
     # #if the comment is negative lets append it to the database
-    if score1 <= score2:
-        print(string.text)
-        cursor.execute("INSERT INTO test (quote, URL) VALUES (?, ?, ?)", (id, string.text, URL))
+    if score2 > 0.3:
+        cursor.execute("INSERT INTO test (quote, URL) VALUES (?, ?)", (string.text, URL))
         conn.commit()
         
 
     
 
 
+cursor.execute('SELECT * FROM test')
+rows = cursor.fetchall()
+
+if len(rows) == 0:
+    print("The database is empty.")
+else:
+    print("The database is not empty.")
+
+conn.close()
