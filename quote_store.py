@@ -32,7 +32,8 @@ def query(payload):
 
 #will allow the user to select url to scrape
 
-URL = input('Enter Target URL: ')
+#URL = input('Enter Target URL: ')
+URL = 'https://www.theguardian.com/world/2022/jul/24/viktor-orban-against-race-mixing-europe-hungary'
 page = requests.get(URL)
 
 
@@ -89,7 +90,7 @@ for string in tag:
     
 
     # #if the comment is negative lets append it to the database
-    if score2 > 0.3:
+    if score2 > 0.20:
         cursor.execute("INSERT INTO test (quote, URL) VALUES (?, ?)", (string.text, URL))
         conn.commit()
         
