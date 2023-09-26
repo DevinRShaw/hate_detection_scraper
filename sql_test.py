@@ -44,20 +44,26 @@ id = 0
 # Access each body tag's string recursively
 for string in tag:
 
+    print(string.text)
+
     if id > 5:
         break
-
     id = id + 1
 
+    
+
     output = query({
-	"inputs": f"{string.get_text()}"
+	"inputs": f"{string.text}"
     })
 
     
 
-
-    print(type(output))
-
+    #<class 'list'>
+    #[[{'label': 'NON_HATE', 'score': 0.9632159471511841}, {'label': 'HATE', 'score': 0.036784060299396515}]]
+    # print(type(output))
+    # print(output)
+    
+    output = output[0]
 
 
 
@@ -78,20 +84,22 @@ for string in tag:
 
     
     # # Access the values #fix this bug 
-    # label1 = output[0][0]["label"]
-    # score1 = output[0][0]["score"]
+    label1 = output[0]["label"]
+    score1 = output[0]["score"]
 
-    # label2 = output[0][1]["label"]
-    # score2 = output[0][1]["score"]
+    label2 = output[1]["label"]
+    score2 = output[1]["score"]
+
+    
 
     
 
     # #if the comment is negative lets append it to the database
-    # if score1 >= score2:
-    #     print(string)
-    #     cursor.execute("INSERT INTO test (id, quote, URL) VALUES (?, ?, ?)", (id, string, 80000))
-    #     conn.commit()
-    #     id = id + 1
+    if score1 >= score2:
+        print(score1)
+        cursor.execute("INSERT INTO test (id, quote, URL) VALUES (?, ?, ?)", (id, string.text, URL))
+        conn.commit()
+        id = id + 1
 
     
 
