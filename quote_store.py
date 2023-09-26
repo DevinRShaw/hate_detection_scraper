@@ -32,8 +32,8 @@ def query(payload):
 
 #will allow the user to select url to scrape
 
-#URL = input('Enter Target URL: ')
-URL = 'https://www.theguardian.com/world/2022/jul/24/viktor-orban-against-race-mixing-europe-hungary'
+URL = input('Enter Target URL: ')
+#test URL URL = 'https://www.theguardian.com/world/2022/jul/24/viktor-orban-against-race-mixing-europe-hungary'
 page = requests.get(URL)
 
 
